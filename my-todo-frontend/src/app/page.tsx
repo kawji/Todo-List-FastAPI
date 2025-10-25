@@ -1,15 +1,28 @@
-'use client'
-import { useState } from "react";
+"use client";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
+
+import { TodoItem } from "@/components/todo/formtodo";
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
-import { Eraser ,Pencil ,CircleQuestionMark  } from 'lucide-react';
 import FormTodo from "@/components/todo/formtodo";
 import CardDo from "@/components/todo/carddo";
 
 export default function Home() {
-    const [dark, setDark] = useState(false);
+  const API_URL = "http://127.0.0.1:8000"; // FastAPI backend
+
+  // ✅ ดึงข้อมูลทั้งหมด
+  const { data: todos, isLoading } = useQuery<TodoItem[]>({
+    queryKey: ["todos"],
+    queryFn: async () => {
+      const res = await axios.get(`${API_URL}/todos`);
+      return res.data;
+    },
+  });
+
+  console.log(todos)
 
   return (
-    <main className="min-h-screen font-sans flex flex-col px-2 md:px-8 gap-8 items-center justify-start bg-white dark:bg-black transition-colors duration-300">
+    <main className="min-h-screen font-sans flex flex-col px-2 md:px-8 pb-10 gap-8 items-center justify-start bg-white dark:bg-black transition-colors duration-300">
 
       <div className="w-full h-auto mt-25 flex justify-center items-center ">
         <h1 className=" text-6xl font-black tracking-wide text-center px-3 py-1.5 border dark:border-white/8 border-black/5 hover:dark:bg-white/93 hover:dark:text-black hover:bg-black hover:text-white transition-all duration-300   ">
@@ -21,13 +34,10 @@ export default function Home() {
       </div>
 
       <div className=" flex flex-col max-w-[550px] w-full h-auto gap-10 md:gap-4 px-x ">
-        <CardDo text="saddddddddddddddddddddddddddddddssssssss" status={false} />
-        <CardDo text="text" status={false} />
-        <CardDo text="text" status={false} />
-        <CardDo text="text" status={false} />
-        <CardDo text="text" status={false} />
-        <CardDo text="text" status={false} />
-        <CardDo text="text" status={false} />
+        {todos?.map((i)=> <CardDo key={i.id} id={i.id} text={i.content} status={i.status} />
+        )}
+
+
 
       </div>
 
