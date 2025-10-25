@@ -1,0 +1,45 @@
+'use client'
+import { useState } from "react";
+import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
+import { Eraser ,Pencil ,CircleQuestionMark  } from 'lucide-react';
+import FormTodo from "@/components/todo/formtodo";
+import CardDo from "@/components/todo/carddo";
+
+export default function Home() {
+    const [dark, setDark] = useState(false);
+
+  return (
+    <main className="min-h-screen font-sans flex flex-col px-2 md:px-8 gap-8 items-center justify-start bg-white dark:bg-black transition-colors duration-300">
+
+      <div className="w-full h-auto mt-25 flex justify-center items-center ">
+        <h1 className=" text-6xl font-black tracking-wide text-center px-3 py-1.5 border dark:border-white/8 border-black/5 hover:dark:bg-white/93 hover:dark:text-black hover:bg-black hover:text-white transition-all duration-300   ">
+          My Todo List
+        </h1>
+      </div>
+      <div className="w-full h-auto flex flex-col justify-center items-center   ">
+        <FormTodo />
+      </div>
+
+      <div className=" flex flex-col max-w-[550px] w-full h-auto gap-10 md:gap-4 px-x ">
+        <CardDo text="saddddddddddddddddddddddddddddddssssssss" status={false} />
+        <CardDo text="text" status={false} />
+        <CardDo text="text" status={false} />
+        <CardDo text="text" status={false} />
+        <CardDo text="text" status={false} />
+        <CardDo text="text" status={false} />
+        <CardDo text="text" status={false} />
+
+      </div>
+
+
+
+
+
+
+
+      <div className=" fixed z-99 bottom-7 left-1/2 -translate-x-1/2 w-auto h-auto px-4 py-2 border dark:bg-black bg-white border-black/10 dark:border-white/15 rounded-full ">
+        <AnimatedThemeToggler className="p-3 rounded-full border border-gray-400/75 dark:border-white/15 " />
+      </div>
+    </main>
+  );
+}
