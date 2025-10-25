@@ -1,15 +1,31 @@
 'use client'
+import axios from "axios";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { Eraser ,Pencil ,CircleQuestionMark ,Star  } from 'lucide-react';
 import clsx from "clsx";
 
 type CardDoProps = {
+  id:number
     text:string;
     status:boolean;
 }
 
-export default function CardDo({ text, status }:CardDoProps) {
+export default function CardDo({ id ,text, status }:CardDoProps) {
     const [statusAction ,setStatusAction] = useState(status)
+    const queryClient = useQueryClient();
+
+
+  // ✅ ลบ todo
+  const deleteTodo = useMutation({
+    mutationFn: async (id: number) => {
+      await axios.delete(`http://127.0.0.1:8000/todos/${id}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
+    },
+  });
+
 
     return(
         <div className="flex w-full h-auto items-center gap-2 flex-col md:flex-row  ">
@@ -28,7 +44,9 @@ export default function CardDo({ text, status }:CardDoProps) {
             <div className=" flex justify-center items-center flex-1 md:flex-auto w-auto h-auto px-2 py-2 border dark:border-white/10 border-black/10 cursor-pointer hover:bg-blue-500/25 hover:text-blue-700 transition-all " >
                 <Pencil />
             </div>
-            <div className=" flex justify-center items-center flex-1 md:flex-auto w-auto h-auto px-2 py-2 border dark:border-white/10 border-black/10 cursor-pointer hover:bg-red-500/25 hover:text-red-700 transition-all " >
+            <div className=" flex justify-center items-center flex-1 md:flex-auto w-auto h-auto px-2 py-2 border dark:border-white/10 border-black/10 cursor-pointer hover:bg-red-500/25 hover:text-red-700 transition-all "
+              onClick={() => deleteTodo.mutate(id)}
+            >
                 <Eraser />
             </div>
           </div>
