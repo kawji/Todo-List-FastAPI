@@ -3,7 +3,8 @@ import axios from "axios";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import clsx from "clsx";
-
+import TotalText from "./totalText";
+import RemitText from "./remitText";
 
 export interface TodoItem {
   id: number;
@@ -73,18 +74,8 @@ export default function FormTodo() {
       </span>
 
       <div className="flex w-full max-w-[550px] items-center justify-between font-semibold">
-        <span className={clsx("px-2 py-1 border hover:bg-black/5 hover:dark:bg-white/5 transition-all duration-300"
-            , total <= 25 && total >= 1 ? "text-green-700 border-freen-700 bg-green-500/25" : "hover:bg-black/5 hover:dark:bg-white/5"
-        )}>
-          Total Characters: {total}
-        </span>
-        <span
-          className={clsx('px-2 py-1 border transition-all duration-300 ' 
-            , remit <= 15 ? "text-red-700 border-red-700 bg-red-500/25 hover:bg-red-500/5 " : "hover:bg-black/5 hover:dark:bg-white/5"
-          )}
-        >
-          Remaining: {remit}
-        </span>
+        <TotalText total={total} />
+        <RemitText remit={remit} />
       </div>
     </div>
   );
