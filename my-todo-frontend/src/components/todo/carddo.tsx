@@ -4,22 +4,26 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { Eraser ,Pencil ,CircleQuestionMark ,Star  } from 'lucide-react';
 import clsx from "clsx";
+import CardEdit from "./cardEdit";
+import { AnimatePresence ,motion } from "motion/react"
+
 
 type CardDoProps = {
   id:number
-    text:string;
-    status:boolean;
+  text:string;
+  status:boolean;
 }
 
 export default function CardDo({ id ,text, status }:CardDoProps) {
-    const [statusAction ,setStatusAction] = useState(status)
     const queryClient = useQueryClient();
+    const [cardEdit ,setCardEdit] = useState<boolean>(false)
 
 
   // ✅ ลบ todo
   const deleteTodo = useMutation({
     mutationFn: async (id: number) => {
-      await axios.delete(`http://127.0.0.1:8000/todos/${id}`);
+      const res = await axios.delete(`http://127.0.0.1:8000/todos/${id}`);
+      return res.data
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["todos"] });
@@ -27,22 +31,53 @@ export default function CardDo({ id ,text, status }:CardDoProps) {
   });
 
 
+
+
+
+    const updateTodo = useMutation({
+      mutationFn: async (id:number ) => {
+        const res = await axios.put(`http://127.0.0.1:8000/todos/${id}`,{
+          content:text ,
+          status:!status
+        })
+        return res.data
+      },
+      onSuccess:(data) => {
+          queryClient.invalidateQueries({queryKey:["todos"]})
+          console.log(data)
+        }
+
+
+    })
+
+
     return(
-        <div className="flex w-full h-auto items-center gap-2 flex-col md:flex-row  ">
+        <motion.div className="flex w-full h-auto items-center gap-2 flex-col md:flex-row  " 
+          key={id+5}
+          initial={{opacity:0 ,y:10  }}
+          animate={{opacity:1 ,y:0 }}
+          exit={{opacity:0 ,y:-10  }}
+          transition={{
+            type: "spring" ,
+            duration:0.5
+          }}
+        >
           <div className={clsx("flex-1 flex  text-left w-full gap-2 pl-4 pr-6 py-2 border cursor-pointer transition-all duration-300  ",
           "min-w-[200px] text-center items-center"
-            ,statusAction? " text-green-600 bg-green-500/25 border-green-600 dark:border-green-700 hover:bg-green-500/35  ":"  hover:dark:border-white/25  dark:text-white/75 hover:bg-black/7 hover:dark:bg-amber-50/5 hover:dark:text-white border-black/10 dark:border-white/15  "
+            ,status? " text-green-600 bg-green-500/25 border-green-600 dark:border-green-700 hover:bg-green-500/35  ":"  hover:dark:border-white/25  dark:text-white/75 hover:bg-black/7 hover:dark:bg-amber-50/5 hover:dark:text-white border-black/10 dark:border-white/15  "
           )}
-          onClick={()=> setStatusAction((prev) => (!prev) )}
+          onClick={()=>  updateTodo.mutate(id)  }
           >
-            {statusAction? <Star width={22} className="shrink-0" /> : <CircleQuestionMark width={22}  className="shrink-0" />}
+            {status? <Star width={22} className="shrink-0" /> : <CircleQuestionMark width={22}  className="shrink-0" />}
             <p className="w-full h-auto wrap-break-word text-left">
                 {text}
             </p>
           </div>
           <div className="flex w-full md:w-auto ">
-            <div className=" flex justify-center items-center flex-1 md:flex-auto w-auto h-auto px-2 py-2 border dark:border-white/10 border-black/10 cursor-pointer hover:bg-blue-500/25 hover:text-blue-700 transition-all " >
-                <Pencil />
+            <div className=" flex justify-center items-center flex-1 md:flex-auto w-auto h-auto px-2 py-2 border dark:border-white/10 border-black/10 cursor-pointer hover:bg-blue-500/25 hover:text-blue-700 transition-all "
+              onClick={() => setCardEdit(true)}
+            >
+              <Pencil />
             </div>
             <div className=" flex justify-center items-center flex-1 md:flex-auto w-auto h-auto px-2 py-2 border dark:border-white/10 border-black/10 cursor-pointer hover:bg-red-500/25 hover:text-red-700 transition-all "
               onClick={() => deleteTodo.mutate(id)}
@@ -50,9 +85,13 @@ export default function CardDo({ id ,text, status }:CardDoProps) {
                 <Eraser />
             </div>
           </div>
+          <AnimatePresence mode="wait">
+              { cardEdit && <CardEdit id={id} text={text} status={status} close={ ()=> setCardEdit(false) } />}
+
+          </AnimatePresence>
 
 
-        </div>
+        </motion.div>
 
     )
 }
