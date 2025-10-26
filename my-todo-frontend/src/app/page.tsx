@@ -1,11 +1,13 @@
 "use client";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
-
 import { TodoItem } from "@/components/todo/formtodo";
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 import FormTodo from "@/components/todo/formtodo";
 import CardDo from "@/components/todo/carddo";
+
+import { AnimatePresence ,motion } from "motion/react"
+
 
 export default function Home() {
   const API_URL = "http://127.0.0.1:8000"; // FastAPI backend
@@ -32,21 +34,16 @@ export default function Home() {
       <div className="w-full h-auto flex flex-col justify-center items-center   ">
         <FormTodo />
       </div>
+      <AnimatePresence mode="wait">
+        <div className=" flex flex-col max-w-[550px] w-full h-auto gap-10 md:gap-4 px-x ">
+          {todos?.map((i)=> <CardDo key={i.id} id={i.id} text={i.content} status={i.status} />
+          )}
+        </div>
 
-      <div className=" flex flex-col max-w-[550px] w-full h-auto gap-10 md:gap-4 px-x ">
-        {todos?.map((i)=> <CardDo key={i.id} id={i.id} text={i.content} status={i.status} />
-        )}
-
-
-
-      </div>
-
+      </AnimatePresence>
 
 
-
-
-
-
+ 
       <div className=" fixed z-99 bottom-7 left-1/2 -translate-x-1/2 w-auto h-auto px-4 py-2 border dark:bg-black bg-white border-black/10 dark:border-white/15 rounded-full ">
         <AnimatedThemeToggler className="p-3 rounded-full border border-gray-400/75 dark:border-white/15 " />
       </div>
