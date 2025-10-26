@@ -18,8 +18,6 @@ export default function CardDo({ id ,text, status }:CardDoProps) {
     const queryClient = useQueryClient();
     const [cardEdit ,setCardEdit] = useState<boolean>(false)
 
-
-  // ✅ ลบ todo
   const deleteTodo = useMutation({
     mutationFn: async (id: number) => {
       const res = await axios.delete(`http://127.0.0.1:8000/todos/${id}`);
@@ -29,10 +27,6 @@ export default function CardDo({ id ,text, status }:CardDoProps) {
       queryClient.invalidateQueries({ queryKey: ["todos"] });
     },
   });
-
-
-
-
 
     const updateTodo = useMutation({
       mutationFn: async (id:number ) => {
@@ -53,7 +47,7 @@ export default function CardDo({ id ,text, status }:CardDoProps) {
 
     return(
         <motion.div className="flex w-full h-auto items-center gap-2 flex-col md:flex-row  " 
-          key={id+5}
+          key={id+2}
           initial={{opacity:0 ,y:10  }}
           animate={{opacity:1 ,y:0 }}
           exit={{opacity:0 ,y:-10  }}

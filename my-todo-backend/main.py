@@ -15,17 +15,16 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 # Cors
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # Next.js
+    allow_origins=["http://localhost:3000"], 
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# โมเดล Todo
 class TodoItem(BaseModel):
     id: int | None = None
     content: str
-    status: bool | None = None
+    status: bool
 
 def get_db():
     db = SessionLocal()
@@ -36,13 +35,13 @@ def get_db():
 
 
 
-# ✅ GET - อ่านทั้งหมด
+# GET
 @app.get("/todos", response_model=List[TodoItem])
 def get_todos(db: Session = Depends(get_db)):
     todos = db.query(DatabaseModel).all()
     return todos
 
-# ✅ POST - เพิ่ม todo
+# New
 @app.post("/todos", response_model=TodoItem)
 def add_todo(todo: TodoItem, db: Session = Depends(get_db) ):
     new_todo = DatabaseModel(content=todo.content, status=todo.status)
@@ -52,7 +51,7 @@ def add_todo(todo: TodoItem, db: Session = Depends(get_db) ):
     return new_todo
 
 
-# ✅ PUT - อัปเดต todo
+# Update
 @app.put("/todos/{todo_id}", response_model=TodoItem)
 def update_todo(todo_id: int, todo: TodoItem, db: Session = Depends(get_db) ):
     db_todo = db.query(DatabaseModel).filter(DatabaseModel.id == todo_id).first()
@@ -66,7 +65,7 @@ def update_todo(todo_id: int, todo: TodoItem, db: Session = Depends(get_db) ):
     return db_todo
 
 
-# ✅ DELETE - ลบ todo
+# DELETE 
 @app.delete("/todos/{todo_id}")
 def delete_todo(todo_id: int, db: Session = Depends(get_db) ):
     db_todo = db.query(DatabaseModel).filter(DatabaseModel.id == todo_id).first()

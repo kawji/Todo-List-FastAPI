@@ -4,7 +4,7 @@ import TotalText from "./totalText";
 import RemitText from "./remitText";
 import { useMutation ,useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import { AnimatePresence ,motion } from "motion/react"
+import { motion } from "motion/react"
 
 
 interface CardEditProps {
@@ -42,8 +42,6 @@ export default function CardEdit({ id ,text ,status ,close }:CardEditProps ) {
 
 
     })
-
-
 
     return(
         <motion.div className=" fixed left-0 top-1/2 -translate-y-1/2 w-full h-full flex justify-center items-center bg-black/75 z-100 "

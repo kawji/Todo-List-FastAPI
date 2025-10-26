@@ -10,13 +10,10 @@ import { AnimatePresence ,motion } from "motion/react"
 
 
 export default function Home() {
-  const API_URL = "http://127.0.0.1:8000"; // FastAPI backend
-
-  // ✅ ดึงข้อมูลทั้งหมด
   const { data: todos, isLoading } = useQuery<TodoItem[]>({
     queryKey: ["todos"],
     queryFn: async () => {
-      const res = await axios.get(`${API_URL}/todos`);
+      const res = await axios.get('http://127.0.0.1:8000/todos');
       return res.data;
     },
   });

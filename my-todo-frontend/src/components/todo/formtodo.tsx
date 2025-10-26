@@ -2,7 +2,7 @@
 import axios from "axios";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import clsx from "clsx";
+
 import TotalText from "./totalText";
 import RemitText from "./remitText";
 
@@ -12,9 +12,8 @@ export interface TodoItem {
   status: boolean;
 } 
 
-
 export default function FormTodo() {
-  const API_URL = "http://127.0.0.1:8000"; // FastAPI backend
+  const API_URL = "http://127.0.0.1:8000"; 
   const queryClient = useQueryClient();
   const [task, setTask] = useState<string>("");
 
