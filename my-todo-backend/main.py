@@ -25,7 +25,7 @@ app.add_middleware(
 class TodoItem(BaseModel):
     id: int | None = None
     content: str
-    status: bool 
+    status: bool | None = None
 
 def get_db():
     db = SessionLocal()
