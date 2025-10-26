@@ -18,7 +18,7 @@ export default function Home() {
     },
   });
 
-  console.log(todos)
+  console.log('dataaaaaaa --> ',todos)
 
   return (
     <main className="min-h-screen font-sans flex flex-col px-2 md:px-8 pb-10 gap-8 items-center justify-start bg-white dark:bg-black transition-colors duration-300">
@@ -32,9 +32,10 @@ export default function Home() {
         <FormTodo />
       </div>
       <AnimatePresence mode="wait">
-        <div className=" flex flex-col max-w-[550px] w-full h-auto gap-10 md:gap-4 px-x ">
-          {todos?.map((i)=> <CardDo key={i.id} id={i.id} text={i.content} status={i.status} />
-          )}
+        <div className=" flex flex-col max-w-[550px] w-full h-auto gap-5 md:gap-4 px-x ">
+          {todos?.slice().sort((a, b) => Number(a.status) - Number(b.status)).map((i) => (
+              <CardDo key={i.id} id={i.id} text={i.content} status={i.status} />
+            ))}
         </div>
 
       </AnimatePresence>
