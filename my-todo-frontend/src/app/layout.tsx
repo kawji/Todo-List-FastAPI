@@ -30,7 +30,6 @@ export default function RootLayout({
       >
         <QueryClientProvider client={queryClient}>
           {children}
-
         </QueryClientProvider>
       </body>
     </html>
