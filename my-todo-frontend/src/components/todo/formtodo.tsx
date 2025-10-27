@@ -13,7 +13,6 @@ export interface TodoItem {
 } 
 
 export default function FormTodo() {
-  const API_URL = "http://127.0.0.1:8000"; 
   const queryClient = useQueryClient();
   const [task, setTask] = useState<string>("");
 
@@ -35,7 +34,7 @@ export default function FormTodo() {
 
   const addTodo = useMutation({
     mutationFn: async (newTask: string) => {
-      const res = await axios.post(`${API_URL}/todos`, {
+      const res = await axios.post("https://my-todo-backend-d8n9i0o5l-kawjis-projects.vercel.app/todos", {
         content: newTask,
         status: false,
       });

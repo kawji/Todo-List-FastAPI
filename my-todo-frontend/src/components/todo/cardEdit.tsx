@@ -28,7 +28,7 @@ export default function CardEdit({ id ,text ,status ,close }:CardEditProps ) {
 
     const editContent = useMutation({
         mutationFn: async ({ id ,content ,status }:{ id:number ,content:string ,status:boolean }) => {
-            const res = await axios.put(`http://127.0.0.1:8000/todos/${id}`,{
+            const res = await axios.put(`https://my-todo-backend-d8n9i0o5l-kawjis-projects.vercel.app/todos/${id}`,{
                 content:content ,
                 status:status
             })
