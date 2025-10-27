@@ -13,7 +13,7 @@ export default function Home() {
   const { data: todos, isLoading } = useQuery<TodoItem[]>({
     queryKey: ["todos"],
     queryFn: async () => {
-      const res = await axios.get('http://127.0.0.1:8000/todos');
+      const res = await axios.get('https://my-todo-backend-d8n9i0o5l-kawjis-projects.vercel.app/todos');
       return res.data;
     },
   });
