@@ -3,11 +3,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List
-from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker ,Session
 from fastapi import Depends
 
-from manageData import DatabaseModel
+from manageData import DatabaseModel ,engine
 
 app = FastAPI()
 
