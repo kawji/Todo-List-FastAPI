@@ -7,8 +7,8 @@ export const metadata: Metadata = {
   title: "Kaw - Todo List",
   description: "Todo List __ Kaw - Supavich",
     icons: {
-    icon: "/favicon.png",
-  },
+      icon:'text.png'
+    }
 };
 
 
