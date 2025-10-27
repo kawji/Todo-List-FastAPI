@@ -62,7 +62,7 @@ def update_todo(todo_id: int, todo: TodoItem, db: Session = Depends(get_db) ):
     db_todo.status = todo.status
     db.commit()
     db.refresh(db_todo)
-    return db_todo
+    return {"status":"success" , "content": "Update successfully" }
 
 
 # DELETE 
@@ -74,4 +74,4 @@ def delete_todo(todo_id: int, db: Session = Depends(get_db) ):
 
     db.delete(db_todo)
     db.commit()
-    return {"message": "Deleted successfully"}
+    return {"status":"success" , "content": "Deleted successfully" }
