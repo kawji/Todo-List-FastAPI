@@ -7,7 +7,6 @@ import clsx from "clsx";
 import CardEdit from "./cardEdit";
 import { AnimatePresence ,motion } from "motion/react"
 
-
 type CardDoProps = {
   id:number
   text:string;
@@ -23,8 +22,10 @@ export default function CardDo({ id ,text, status }:CardDoProps) {
       const res = await axios.delete(`http://127.0.0.1:8000/todos/${id}`);
       return res.data
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["todos"] });
+
+
     },
   });
 
@@ -38,7 +39,7 @@ export default function CardDo({ id ,text, status }:CardDoProps) {
       },
       onSuccess:(data) => {
           queryClient.invalidateQueries({queryKey:["todos"]})
-          console.log(data)
+
         }
 
 
