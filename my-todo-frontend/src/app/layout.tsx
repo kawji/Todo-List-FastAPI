@@ -1,9 +1,16 @@
-"use client";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import {  useState } from "react";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import RootProvider from "./rootProveder";
 import "./globals.css";
+
+export const metadata: Metadata = {
+  title: "Kaw - Todo List",
+  description: "Todo List __ Kaw - Supavich",
+    icons: {
+    icon: "/favicon.png",
+  },
+};
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,16 +28,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [queryClient] = useState(() => new QueryClient());
 
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <QueryClientProvider client={queryClient}>
+        <RootProvider>
           {children}
-        </QueryClientProvider>
+        </RootProvider>
       </body>
     </html>
   );
