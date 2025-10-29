@@ -19,7 +19,7 @@ export default function CardDo({ id ,text, status }:CardDoProps) {
 
   const deleteTodo = useMutation({
     mutationFn: async (id: number) => {
-      const res = await axios.delete(`https://my-todo-backend-d8n9i0o5l-kawjis-projects.vercel.app/todos/${id}`);
+      const res = await axios.delete(`https://postgres-todo-ten.vercel.app/todos/${id}`);
       return res.data
     },
     onSuccess: (data) => {
@@ -31,7 +31,7 @@ export default function CardDo({ id ,text, status }:CardDoProps) {
 
     const updateTodo = useMutation({
       mutationFn: async (id:number ) => {
-        const res = await axios.put(`https://my-todo-backend-d8n9i0o5l-kawjis-projects.vercel.app/todos/${id}`,{
+        const res = await axios.put(`https://postgres-todo-ten.vercel.app/todos/${id}`,{
           content:text ,
           status:!status
         })
