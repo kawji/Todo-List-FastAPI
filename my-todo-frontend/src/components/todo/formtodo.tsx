@@ -34,7 +34,7 @@ export default function FormTodo() {
 
   const addTodo = useMutation({
     mutationFn: async (newTask: string) => {
-      const res = await axios.post("https://my-todo-backend-d8n9i0o5l-kawjis-projects.vercel.app/todos", {
+      const res = await axios.post("/https://postgres-todo-ten.vercel.app/todos", {
         content: newTask,
         status: false,
       });
