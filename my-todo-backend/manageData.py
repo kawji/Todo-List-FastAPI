@@ -14,7 +14,7 @@ DB_PORT = os.getenv("DB_PORT")
 DB_NAME = os.getenv("DB_NAME")
 
 # สร้าง connection string สำหรับ PostgreSQL
-DATABASE_URL = f"postgresql://postgres:{DB_PASSWORD}@db.apbkobhfnmcqqzqeeqss.supabase.co:5432/postgres"
+DATABASE_URL = f"postgresql://postgres:{DB_PASSWORD}@db.onhsywupgzlztfjsutnm.supabase.co:5432/postgres"
 
 engine = create_engine(DATABASE_URL)
 Base = declarative_base()
