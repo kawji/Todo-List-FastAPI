@@ -10,7 +10,6 @@ from manageData import DatabaseModel ,engine
 
 app = FastAPI()
 
-
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 # Cors
