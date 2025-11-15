@@ -1,16 +1,14 @@
-import os
+from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi import FastAPI, HTTPException
+from sqlalchemy.orm import Session
 from pydantic import BaseModel
 from typing import List
-from sqlalchemy.orm import sessionmaker ,Session
-from fastapi import Depends
 
-from manageData import DatabaseModel ,engine
+from db import SessionLocal
+from models import DatabaseModel
+
 
 app = FastAPI()
-
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 # Cors
 app.add_middleware(
