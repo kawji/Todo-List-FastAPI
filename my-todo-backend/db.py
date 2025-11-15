@@ -14,6 +14,7 @@ DBNAME = os.getenv("DBNAME")
 
 DATABASE_URL = f"postgresql+psycopg2://{USER}:{PASSWORD}@{HOST}:{PORT}/{DBNAME}?sslmode=require"
 
+
 engine = create_engine(
     DATABASE_URL,
     poolclass=NullPool,
