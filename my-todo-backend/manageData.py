@@ -17,8 +17,7 @@ DATABASE_URL = f"postgresql+psycopg2://{USER}:{PASSWORD}@{HOST}:{PORT}/{DBNAME}?
 
 engine = create_engine(
     DATABASE_URL,
-    poolclass=NullPool,
-    connect_args={"sslmode": "require"}
+    poolclass=NullPool
 )
 
 Base = declarative_base()
@@ -28,5 +27,3 @@ class DatabaseModel(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     content = Column(String(50), nullable=False)
     status = Column(Boolean, nullable=False, default=False)
-
-Base.metadata.create_all(bind=engine)
