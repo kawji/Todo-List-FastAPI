@@ -13,7 +13,7 @@ export default function Home() {
   const { data: todos, isLoading } = useQuery<TodoItem[]>({
     queryKey: ["todos"],
     queryFn: async () => {
-      const res = await axios.get('https://my-todo-backend-tau.vercel.app/todos');
+      const res = await axios.get('https://my-todo-backend-lemon.vercel.app/todos');
       return res.data;
     },
   });
