@@ -34,7 +34,7 @@ export default function FormTodo() {
 
   const addTodo = useMutation({
     mutationFn: async (newTask: string) => {
-      const res = await axios.post("https://my-todo-backend-tau.vercel.app/todos", {
+      const res = await axios.post("https://my-todo-backend-lemon.vercel.app/todos", {
         content: newTask,
         status: false,
       });
