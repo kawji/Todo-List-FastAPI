@@ -1,7 +1,7 @@
 
 import { useState } from "react";
-import TotalText from "./totalText";
-import RemitText from "./remitText";
+import TotalText from "../ui/totalText";
+import RemitText from "../ui/remitText";
 import { useMutation ,useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { motion } from "motion/react"

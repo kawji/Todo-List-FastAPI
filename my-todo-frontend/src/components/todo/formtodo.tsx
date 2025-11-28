@@ -3,8 +3,8 @@ import axios from "axios";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 
-import TotalText from "./totalText";
-import RemitText from "./remitText";
+import TotalText from "../ui/totalText";
+import RemitText from "../ui/remitText";
 
 export interface TodoItem {
   id: number;

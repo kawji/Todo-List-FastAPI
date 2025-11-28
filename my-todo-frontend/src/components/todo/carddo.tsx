@@ -6,12 +6,8 @@ import { Eraser ,Pencil ,CircleQuestionMark ,Star  } from 'lucide-react';
 import clsx from "clsx";
 import CardEdit from "./cardEdit";
 import { AnimatePresence ,motion } from "motion/react"
+import { CardDoProps } from "@/types/cardtodo";
 
-type CardDoProps = {
-  id:number
-  text:string;
-  status:boolean;
-}
 
 export default function CardDo({ id ,text, status }:CardDoProps) {
     const queryClient = useQueryClient();
