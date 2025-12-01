@@ -5,8 +5,10 @@ import { TodoItem } from "@/components/todo/formtodo";
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 import FormTodo from "@/components/todo/formtodo";
 import CardDo from "@/components/todo/carddo";
-
 import { AnimatePresence ,motion } from "motion/react"
+import { useContext } from "react";
+import { DataTodo } from "@/context/contexts";
+import { CardDoProps } from "@/types/cardtodo";
 
 
 export default function Home() {
@@ -16,7 +18,13 @@ export default function Home() {
       const res = await axios.get('https://my-todo-backend-lemon.vercel.app/todos');
       return res.data;
     },
+    
   });
+
+  const data = useContext(DataTodo)
+
+
+  console.log('context --> ',data)
 
   console.log('dataaaaaaa --> ',todos)
 
