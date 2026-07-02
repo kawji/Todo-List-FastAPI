@@ -28,5 +28,3 @@ This project demonstrates how a modern frontend built with React/Next.js can sea
 
 ---
 
-## 📁 Project Structure
-https://todo-list-fast-api-sq-lite.vercel.app
